@@ -2,18 +2,21 @@ package edu.ciclo4.ms_seguridad.modelos;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
-import lombok.AccessLevel;
 
-@Document
+@Document()
 @Data
-public class Permiso {
-    @Id
-    @Setter(AccessLevel.NONE) //le establezco acces none para qeu no pued amodificarse el id
-    private String _id;
+public class Rol {
 
-    private String url;
-    private String metodo;
+    @Id
+    @Setter(AccessLevel.NONE)
+    private String _id;
     
+    private String tipo;
+    private String descripcion;
+    
+
 }

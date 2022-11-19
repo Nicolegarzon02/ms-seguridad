@@ -1,4 +1,5 @@
 package edu.ciclo4.ms_seguridad.controladores;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.ciclo4.ms_seguridad.modelos.Permiso;
 import edu.ciclo4.ms_seguridad.repositorios.RepoPermiso;
-import org.springframework.http.HttpStatus;
+import lombok.extern.apachecommons.CommonsLog;
 
+import org.springframework.http.HttpStatus;
+@CommonsLog
 @CrossOrigin
 @RestController
 @RequestMapping("/permisos")
@@ -26,24 +29,27 @@ public class ControladorPermiso {
     
     @GetMapping("")
     public List<Permiso> index(){
+        log.debug("[GET /permisos]");
         return this.repositorioPermiso.findAll();
     }
-
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Permiso create(@RequestBody  Permiso infoPermiso){
-        return this.repositorioPermiso.save(infoPermiso);
-    }
-
     @GetMapping("{id}")
     public Permiso show(@PathVariable String id){
+        log.debug("[GET /permisos"+ id +"]");
         Permiso permisolActual=this.repositorioPermiso
                         .findById(id)
                         .orElse(null);
         return permisolActual;
     }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public Permiso create(@RequestBody  Permiso infoPermiso){
+        log.debug("[POST /permisos]");
+        return this.repositorioPermiso.save(infoPermiso);
+    }
     @PutMapping("{id}")
     public Permiso update(@PathVariable String id,@RequestBody  Permiso infoPermiso){
+        log.debug("[PUT /permisos]" +id+"]" + infoPermiso);
         Permiso permisoActual=this.repositorioPermiso
                 .findById(id)
                 .orElse(null);
@@ -58,6 +64,7 @@ public class ControladorPermiso {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id){
+        log.debug("DELETE /permisos" + id + "]");
         Permiso permisoActual=this.repositorioPermiso
                 .findById(id)
                 .orElse(null);
